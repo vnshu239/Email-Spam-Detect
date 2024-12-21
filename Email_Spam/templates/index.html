@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Spam Classifier</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #00d9a5;
+            margin-bottom: 20px;
+        }
+        form {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+            font-size: 16px;
+            color: #121212;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00d9a5;
+            border: none;
+            border-radius: 4px;
+            color: #121212;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00b482;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            color: #ffffff;
+            text-align: center;
+            font-size: 18px;
+            display: none;
+        }
+        #result.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Email Spam Classifier</h1>
+    <form method="post" action="{% url 'predict' %}">
+        {% csrf_token %}
+        <input type="text" name="input_data" placeholder="Enter email content" required>
+        <button type="submit">Predict</button>
+    </form>
+    {% if result %}
+    <div id="result" class="visible">
+        <strong>Result:</strong> {{ result }}
+    </div>
+    {% endif %}
+</body>
+</html>
